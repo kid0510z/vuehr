@@ -7,7 +7,8 @@
                 <el-input type="text" v-model="loginForm.username" placeholder="用户名"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-                <el-input type="password" v-model="loginForm.password" placeholder="密码"></el-input>
+                <el-input type="password" v-model="loginForm.password" placeholder="密码"
+                          @keyup.enter.native="submitLogin"></el-input>
             </el-form-item>
             <el-checkbox v-model="checked" class="formRemember">Remember Me</el-checkbox>
             <el-form-item>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+
     export default {
         name: "Login",
         data() {
@@ -38,7 +40,13 @@
                 let _this = this;
                 this.$refs.loginForm.validate((valid, message) => {
                     if (valid) {
-                        alert('submit!');
+                        this.postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
+                            if (resp) {
+                                window.localStorage.setItem('user', JSON.stringify(resp.data));
+                                this.$router.replace('/home');
+                                // alert(JSON.stringify(resp));
+                            }
+                        })
                     } else {
 
                         for (let m in message) {
