@@ -4,11 +4,10 @@ export const initMenu = (router, store) => {
     if (store.state.routes.length > 0) {
         return;
     }
-
-
     getRequest('/sys/config/getMenus').then(data => {
-        if (data) {
-            let fmtRoutes = formatRoutes(data);
+        console.log(data);
+        if (data.success) {
+            let fmtRoutes = formatRoutes(data.data);
             // 添加路由
             router.addRoutes(fmtRoutes);
             // 执行initRoutes方法，添加到 store
@@ -46,12 +45,25 @@ export const formatRoutes = (routes) => {
             iconCls: iconCls,
             meta: meta,
             children: children,
-            component(resolve) {
-                require(['../views/' + component + '.vue'], resolve);
+            component: function (resolve) {
+                if (component === 'Home') {
+                    require([`../views/${component}.vue`], resolve);
+                } else if (component.startsWith('Emp')) {
+                    require([`../views/emp/${component}.vue`], resolve);
+                } else if (component.startsWith('Per')) {
+                    require([`../views/per/${component}.vue`], resolve);
+                } else if (component.startsWith('Sal')) {
+                    require([`../views/sal/${component}.vue`], resolve);
+                } else if (component.startsWith('Sta')) {
+                    require([`../views/sta/${component}.vue`], resolve);
+                } else if (component.startsWith('Sys')) {
+                    require([`../views/sys/${component}.vue`], resolve);
+                } else {
+                    console.log('没有找到匹配');
+                }
             }
         };
         fmtRoutes.push(fmRouter);
-
 
     })
 

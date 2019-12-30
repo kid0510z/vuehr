@@ -8,12 +8,15 @@ axios.interceptors.response.use(success => {
      * 浏览器状态码不为null且为200,后台响应为500
      *  即浏览器状态码200，后台业务返回错误
      */
-    if (success.status && success.status === 200 && success.data.status === 500) {
+    if (success.status && success.status === 200 && success.data.success === false) {
         Message.error({message: success.data.message});
         return;
     }
     if (success.data.message) {
-        Message.success({message: success.data.message});
+        // 成功信息为ok的不展示
+        if (success.data.message !== 'ok') {
+            Message.success({message: success.data.message});
+        }
     }
     return success.data;
 

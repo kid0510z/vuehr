@@ -17,11 +17,11 @@
             </el-header>
             <el-container>
                 <el-aside width="200px">
-                    <el-menu router>
-                        <el-submenu index="1" v-for="(item,index) in $router.options.routes" v-if="!item.hidden"
+                    <el-menu router unique-opened>
+                        <el-submenu :index="index+''" v-for="(item,index) in routes" v-if="!item.hidden"
                                     :key="index">
                             <template slot="title">
-                                <i class="el-icon-menu"></i>
+                                <i :class="item.iconCls" class="menuIcon"></i>
                                 <span>{{item.name}}</span>
                             </template>
                             <el-menu-item :index="o.path" v-for="(o,indexj) in item.children" :key="indexj">{{o.name}}
@@ -46,6 +46,13 @@
                 user: JSON.parse(window.localStorage.getItem('user'))
             }
         },
+        computed: {
+            // 定义计算函数，值未发生变动无需执行，提高效率
+            routes() {
+                // 从store中获取左侧菜单
+                return this.$store.state.routes;
+            }
+        },
         methods: {
             // 头部右侧操作触发
             commandHandle(cmd) {
@@ -57,7 +64,10 @@
                     }).then(() => {
                         this.postRequest('/logout', null).then(resp => {
                             // 注销成功
+                            // 清除 localStorage 的用户信息
                             window.localStorage.removeItem('user');
+                            // 清除 store中菜单信息
+
                             this.$router.replace('/');
                         })
                     }).catch(() => {
@@ -99,10 +109,17 @@
         align-items: center; /*实现垂直居中*/
     }
 
+    /*用户头像*/
     .homeHeader .userface img {
         width: 40px;
         height: 40px;
         border-radius: 24px;
         margin-left: 15px;
+    }
+
+    /*左侧菜单图标*/
+    .menuIcon {
+        color: #1e6cff;
+        margin-right: 10px;
     }
 </style>

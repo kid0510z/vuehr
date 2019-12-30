@@ -4,8 +4,9 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import 'font-awesome/css/font-awesome.min.css'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(ElementUI);
 import Router from 'vue-router'
 
@@ -22,9 +23,10 @@ Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.getRequest = getRequest;
 
+// 前置守卫
 router.beforeEach((to, from, next) => {
     // ...
-    if (to.name === 'Login') {
+    if (to.path === '/') {
     } else {
         initMenu(router, store);
     }
