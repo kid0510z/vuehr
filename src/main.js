@@ -16,6 +16,7 @@ import {deleteRequest} from "./utils/app";
 import {putRequest} from "./utils/app";
 import {getRequest} from "./utils/app";
 import {initMenu} from "./utils/menu";
+import fr from "element-ui/src/locale/lang/fr";
 
 Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.postRequest = postRequest;
@@ -26,21 +27,23 @@ Vue.prototype.getRequest = getRequest;
 // 前置守卫
 router.beforeEach((to, from, next) => {
     // ...
-    if (to.path === '/') {
+    console.log(to);
+    console.log(from);
+    if (to.path === '/' || to.path === from.path) {
     } else {
         initMenu(router, store);
     }
     next();
-})
+});
 
 new Vue({
     router,
     store,
     render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
 
 // 解决左侧菜单栏路由跳转报错1
-const originalPush = Router.prototype.push
+const originalPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
-}
+};

@@ -62,12 +62,12 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.postRequest('/logout', null).then(resp => {
+                        this.getRequest('/logout', null).then(resp => {
                             // 注销成功
                             // 清除 localStorage 的用户信息
                             window.localStorage.removeItem('user');
                             // 清除 store中菜单信息
-
+                            this.$store.commit('initRoutes', []);
                             this.$router.replace('/');
                         })
                     }).catch(() => {

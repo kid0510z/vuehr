@@ -1,11 +1,11 @@
 import {getRequest} from "./app";
+import {Message} from "element-ui";
 
 export const initMenu = (router, store) => {
     if (store.state.routes.length > 0) {
         return;
     }
     getRequest('/sys/config/getMenus').then(data => {
-        console.log(data);
         if (data.success) {
             let fmtRoutes = formatRoutes(data.data);
             // 添加路由
@@ -59,6 +59,7 @@ export const formatRoutes = (routes) => {
                 } else if (component.startsWith('Sys')) {
                     require([`../views/sys/${component}.vue`], resolve);
                 } else {
+                    Message.error('没有找到匹配组件!');
                     console.log('没有找到匹配');
                 }
             }
