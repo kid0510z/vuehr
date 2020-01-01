@@ -107,7 +107,7 @@
 
     .homeHeader .title {
         font-size: 30px;
-        font-family: initial, serif;
+        font-family: 华文行楷, serif;
         color: #fff;
 
     }
@@ -136,7 +136,7 @@
     .homeWelcome {
         text-align: center;
         font-size: 30px;
-        font-family: STXingkai,serif;
+        font-family: 华文行楷,serif;
         color: #409eff;
         padding-top: 50px;
     }
