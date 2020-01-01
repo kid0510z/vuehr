@@ -107,7 +107,7 @@
 
     .homeHeader .title {
         font-size: 30px;
-        font-family: initial, serif;
+        font-family: STXingkai, serif;
         color: #fff;
 
     }
