@@ -4,10 +4,10 @@
         <el-form :model="loginForm" ref="loginForm" :rules="rules" class="loginForm">
             <h3 class="loginTitle">系统登陆</h3>
             <el-form-item label="用户名" prop="username">
-                <el-input type="text" v-model="loginForm.username" placeholder="用户名"></el-input>
+                <el-input type="text" v-model="loginForm.username" placeholder="用户名" size="medium"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-                <el-input type="password" v-model="loginForm.password" placeholder="密码"
+                <el-input type="password" v-model="loginForm.password" placeholder="密码" size="medium"
                           @keyup.enter.native="submitLogin"></el-input>
             </el-form-item>
             <el-checkbox v-model="checked" class="formRemember">Remember Me</el-checkbox>

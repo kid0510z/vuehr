@@ -3,7 +3,7 @@
         <div>
             <el-input v-model="pos.name" placeholder="请输入要添加的职位名称" style="width: 400px;"
                       prefix-icon="el-icon-plus" @keyup.enter.native="addPos"/>
-            <el-button type="primary" style="margin-left: 8px;" @click="addPos">确定</el-button>
+            <el-button type="primary" style="margin-left: 8px;" @click="addPos" icon="el-icon-plus">添加</el-button>
         </div>
         <div style="margin-top: 10px;">
 
@@ -115,7 +115,7 @@
         methods: {
             //初始化职位列表
             initPos() {
-                this.getRequest('/system/basic/', null).then(resp => {
+                this.getRequest('/system/basic/position/', null).then(resp => {
                     if (resp) {
                         this.positions = resp.data;
                         console.log(resp.data);
@@ -127,7 +127,7 @@
                 if (!this.pos.name) {
                     this.$message.error("职位名称不能为空！");
                 } else {
-                    this.postRequest("/system/basic/", this.pos).then(resp => {
+                    this.postRequest("/system/basic/position/", this.pos).then(resp => {
                         if (resp) {
                             this.pos.name = '';
                             this.initPos();
@@ -152,7 +152,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.deleteRequest("/system/basic/" + row.id).then(resp => {
+                    this.deleteRequest("/system/basic/position/" + row.id).then(resp => {
                         if (resp) {
                             // 移除该项 提高效率
                             this.positions.splice(index, 1);
@@ -180,7 +180,7 @@
                     });
                     if (ids.length > 1) {
                         ids.substring(0, ids.length - 1);
-                        this.deleteRequest("/system/basic/" + ids).then(resp => {
+                        this.deleteRequest("/system/basic/position/" + ids).then(resp => {
                             if (resp) {
                                 let temp = 0;
                                 let positions = [];
@@ -210,7 +210,7 @@
                 if (!this.updatePosition.name) {
                     this.$message.error("职位名称不能为空！");
                 } else {
-                    this.putRequest("/system/basic/"+this.updatePosition.id, this.updatePosition).then(resp => {
+                    this.putRequest("/system/basic/position/"+this.updatePosition.id, this.updatePosition).then(resp => {
                         if (resp) {
                             this.dialogVisible = false;
                             this.updatePosition = {};
