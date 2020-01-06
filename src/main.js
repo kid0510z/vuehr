@@ -7,7 +7,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'font-awesome/css/font-awesome.min.css'
 
 Vue.config.productionTip = false;
-Vue.use(ElementUI);
+Vue.use(ElementUI, {
+    size: 'small'
+});
 import Router from 'vue-router'
 
 import {postKeyValueRequest} from "./utils/app";
@@ -16,7 +18,6 @@ import {deleteRequest} from "./utils/app";
 import {putRequest} from "./utils/app";
 import {getRequest} from "./utils/app";
 import {initMenu} from "./utils/menu";
-import fr from "element-ui/src/locale/lang/fr";
 
 Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.postRequest = postRequest;
