@@ -31,7 +31,7 @@
         name: "Basic",
         data() {
             return {
-                activeName: 'jobMana'
+                activeName: 'rightsGroups'
             }
         },
         components: {

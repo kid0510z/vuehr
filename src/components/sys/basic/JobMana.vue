@@ -12,7 +12,7 @@
 
             <el-table
                     :data="jobLevels"
-                    style="width: 70%"
+                    style="width: 80%"
                     stripe border
                     @selection-change="handleSelectionChange">
                 <el-table-column
@@ -139,7 +139,6 @@
                 this.getRequest('/system/basic/jobLevel/', null).then(resp => {
                     if (resp) {
                         this.jobLevels = resp.data;
-                        console.log(resp.data);
                     }
                 })
             },

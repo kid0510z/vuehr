@@ -118,7 +118,6 @@
                 this.getRequest('/system/basic/position/', null).then(resp => {
                     if (resp) {
                         this.positions = resp.data;
-                        console.log(resp.data);
                     }
                 })
             },

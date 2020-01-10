@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import router from '../router'
 
     export default {
         name: "Login",
@@ -29,8 +30,8 @@
                     password: [{required: true, message: '请输入密码', trigger: 'blur'}]
                 },
                 loginForm: {
-                    username: "",
-                    password: ""
+                    username: "admin",
+                    password: "123"
                 },
                 checked: true
             }
@@ -43,8 +44,8 @@
                         this.postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
                             if (resp) {
                                 window.localStorage.setItem('user', JSON.stringify(resp.data));
-                                this.$router.replace('/home');
-                                // alert(JSON.stringify(resp));
+                                let returnUrl = this.$route.query.returnUrl;
+                                this.$router.replace(returnUrl === '/' || returnUrl === undefined || returnUrl === null ? '/home' : returnUrl);
                             }
                         })
                     } else {

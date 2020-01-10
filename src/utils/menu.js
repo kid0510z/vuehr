@@ -6,7 +6,7 @@ export const initMenu = (router, store) => {
         return;
     }
     getRequest('/sys/config/getMenus').then(data => {
-        if (data.success) {
+        if (data && data.success) {
             let fmtRoutes = formatRoutes(data.data);
             // 添加路由
             router.addRoutes(fmtRoutes);

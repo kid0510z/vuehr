@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {Message} from 'element-ui';
-import da from "element-ui/src/locale/lang/da";
+import router from "../router";
 
 
 axios.interceptors.response.use(success => {
@@ -23,12 +23,14 @@ axios.interceptors.response.use(success => {
 
 }, error => {
     // 响应失败回调
-    if (error.response.status === 504 || error.response.status === 404) {
+    if (error.response.status === 504 || error.response.status === 404 || error.response.status === 500) {
         Message.error({message: '服务器被绑架了 (๑•̀ㅂ•́)و✧ '});
     } else if (error.response.status === 403) {
         Message.error({message: '权限不足，请联系管理员!'});
     } else if (error.response.status === 401) {
+        // console.log(this.$route.query); TODO returnURL
         Message.error({message: '尚未登录，请登录!'});
+        router.replace("/");
     } else {
         if (error.data.message) {
             Message.error({message: error.data.message});

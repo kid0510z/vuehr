@@ -18,6 +18,7 @@ import {deleteRequest} from "./utils/app";
 import {putRequest} from "./utils/app";
 import {getRequest} from "./utils/app";
 import {initMenu} from "./utils/menu";
+import fr from "element-ui/src/locale/lang/fr";
 
 Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.postRequest = postRequest;
@@ -28,13 +29,16 @@ Vue.prototype.getRequest = getRequest;
 // 前置守卫
 router.beforeEach((to, from, next) => {
     // ...
-    console.log(to);
-    console.log(from);
     if (to.path === '/' || to.path === from.path) {
+        next();
     } else {
-        initMenu(router, store);
+        if (window.localStorage.getItem('user')) {
+            initMenu(router, store);
+            next();
+        } else {
+            next("/?returnUrl=" + to.path);
+        }
     }
-    next();
 });
 
 new Vue({
